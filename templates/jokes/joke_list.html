@@ -1,0 +1,25 @@
+{% extends "_base.html" %}
+
+{% block title %}Jokes{% endblock %}
+
+{% block main %}
+  <h2>Jokes</h2>
+
+  <p>
+    <a class="btn btn-success" href="{% url 'jokes:create' %}">
+      + New Joke
+    </a>
+  </p>
+
+  <ul class="list-group">
+    {% for joke in joke_list %}
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <a href="{{ joke.get_absolute_url }}">{{ joke.question }}</a>
+
+        <a class="btn btn-info" href="{% url 'jokes:update' joke.pk %}">
+          Update
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

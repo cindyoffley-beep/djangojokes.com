@@ -1,0 +1,16 @@
+{% extends "_base.html" %}
+
+{% block title %}Joke Form{% endblock %}
+
+{% block main %}
+  <h2>Joke Form</h2>
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <button class="btn btn-primary" type="submit">
+      Save
+    </button>
+  </form>
+{% endblock %}
