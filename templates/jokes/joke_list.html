@@ -6,22 +6,43 @@
   <h2>Jokes</h2>
 
   <p>
-    <a class="btn btn-success" href="{% url 'jokes:create' %}">
+    <a class="btn btn-success float-end" href="{% url 'jokes:create' %}">
       + New Joke
     </a>
   </p>
 
-  <ul class="list-group">
-    {% for joke in joke_list %}
-      <li class="list-group-item">
-        <a href="{{ joke.get_absolute_url }}">{{ joke.question }}</a>
-
-        <a href="{% url 'jokes:update' joke.slug %}"
-          class="btn btn-info btn-sm float-end me-2">Update</a>
-
-        <a href="{% url 'jokes:delete' joke.slug %}"
-          class="btn btn-danger btn-sm float-end me-2">Delete</a>
-      </li>
-    {% endfor %}
-  </ul>
+  <div class="table-responsive">
+    <table class="table table-striped" style="min-width: 500px">
+      <thead>
+        <tr>
+          <th>Joke</th>
+          <th>Category</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for joke in joke_list %}
+          <tr>
+            <td>
+              <a href="{{ joke.get_absolute_url }}">{{ joke.question }}</a>
+            </td>
+            <td>
+              {{ joke.category.category }}<br>
+              {% for tag in joke.tags.all %}
+                <span class="badge rounded-pill bg-secondary">
+                  {{ tag.tag }}
+                </span>
+              {% endfor %}
+            </td>
+            <td>
+              <a href="{% url 'jokes:update' joke.slug %}"
+                class="btn btn-info btn-sm me-2">Update</a>
+              <a href="{% url 'jokes:delete' joke.slug %}"
+                class="btn btn-danger btn-sm me-2">Delete</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 {% endblock %}
