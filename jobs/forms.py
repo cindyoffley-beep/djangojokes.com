@@ -45,6 +45,7 @@ class JobApplicationForm(forms.ModelForm):
             "available_days",
             "desired_hourly_wage",
             "cover_letter",
+            "resume",
             "confirmation",
             "job",
         )
@@ -52,6 +53,7 @@ class JobApplicationForm(forms.ModelForm):
         widgets = {
             "start_date": forms.DateInput(attrs={"type": "date"}),
             "cover_letter": forms.Textarea(attrs={"rows": 5}),
+            "resume": forms.FileInput(attrs={"accept": "application/pdf"}),
         }
 
         error_messages = {

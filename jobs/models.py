@@ -47,6 +47,11 @@ class Applicant(models.Model):
     )
 
     cover_letter = models.TextField()
+    resume = models.FileField(
+        upload_to='private/resumes',
+        blank=True,
+        help_text='PDFs only'
+    )
     confirmation = models.BooleanField()
 
     job = models.ForeignKey(
