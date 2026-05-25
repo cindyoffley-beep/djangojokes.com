@@ -17,7 +17,10 @@ class Joke(models.Model):
     category = models.ForeignKey(
         'Category', on_delete=models.PROTECT, related_name='jokes'
     )
-    tags = models.ManyToManyField('Tag', blank=True)
+    tags = models.ManyToManyField(
+        'Tag', blank=True, related_name='jokes'
+    )
+    
     slug = models.SlugField(
         max_length=50, unique=True, null=False, editable=False
     )
