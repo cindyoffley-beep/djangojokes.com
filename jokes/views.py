@@ -1,17 +1,16 @@
 import json
+
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.http import JsonResponse
 from django.urls import reverse_lazy
-
 from django.views.generic import (
     CreateView, DeleteView, DetailView, ListView, UpdateView
 )
 
-from .models import Joke, JokeVote
 from .forms import JokeForm
-from .models import Joke
+from .models import Joke, JokeVote
 
 
 class JokeCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
@@ -57,8 +56,9 @@ class JokeUpdateView(SuccessMessageMixin, UserPassesTestMixin, UpdateView):
     def test_func(self):
         obj = self.get_object()
         return self.request.user == obj.user
-    
-    def vote(request, slug):
+
+
+def vote(request, slug):
     user = request.user
     joke = Joke.objects.get(slug=slug)
     data = json.loads(request.body)
