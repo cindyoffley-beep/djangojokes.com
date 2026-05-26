@@ -2,21 +2,29 @@ window.addEventListener('load', () => {
   if (document.getElementById('like-button')) { // If like button exists?
     const likeButton = document.getElementById('like-button');
     const dislikeButton = document.getElementById('dislike-button');
-    likeButton.addEventListener('click', () => { register(1); })
-    dislikeButton.addEventListener('click', () => { register(-1); })
+    likeButton.addEventListener('click', () => { register(1); });
+    dislikeButton.addEventListener('click', () => { register(-1); });
   }
-})
+});
 
 function register(vote) {
+  if (!isAuthenticated) {
+    const outputDiv = document.getElementById('output');
+    outputDiv.innerHTML = 'Sorry, only logged-in users can vote.';
+    return false;
+  }
+
   const csrfInput = document.querySelector("input[name='csrfmiddlewaretoken']");
   const csrfToken = csrfInput.value;
   const likes = Number(document.getElementById('likes').innerHTML);
   const dislikes = Number(document.getElementById('dislikes').innerHTML);
+
   const data = {
     'vote': vote,
     'likes': likes,
     'dislikes': dislikes
-  }
+  };
+
   fetch(ajaxURL, {
     method: 'POST',
     headers: {
