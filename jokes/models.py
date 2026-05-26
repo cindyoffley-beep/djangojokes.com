@@ -68,10 +68,10 @@ class Category(models.Model):
         ordering = ['category']
 
 
-    class Tag(models.Model):
-        tag = models.CharField(max_length=50)
-        slug = models.SlugField(
-            max_length=50, unique=True, null=False, editable=False
+class Tag(models.Model):
+    tag = models.CharField(max_length=50)
+    slug = models.SlugField(
+        max_length=50, unique=True, null=False, editable=False
     )
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -92,6 +92,7 @@ class Category(models.Model):
     class Meta:
         ordering = ['tag']
 
+
 class JokeVote(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
@@ -110,6 +111,4 @@ class JokeVote(models.Model):
             models.UniqueConstraint(
                 fields=['user', 'joke'], name='one_vote_per_user_per_joke'
             )
-        ]    
-
-        
+        ]
